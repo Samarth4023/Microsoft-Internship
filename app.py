@@ -16,9 +16,14 @@ API_KEY = os.getenv("Weather_Token")
 # -------------------- TOOL 1: Get Weather --------------------
 @tool
 def get_current_weather(place: str) -> str:
-    """A tool that fetches the current weather of a particular place
+    """
+    A tool that fetches the current weather of a particular place.
+
     Args:
-        place: A string representing a valid place (e.g., 'London/Paris')
+        place (str): A string representing a valid place (e.g., 'London/Paris').
+
+    Returns:
+        str: Weather description including condition, temperature, humidity, and wind speed.
     """
     api_key = API_KEY
     url = "https://api.openweathermap.org/data/2.5/weather"
@@ -50,12 +55,18 @@ def get_current_weather(place: str) -> str:
     except Exception as e:
         return f"Error fetching weather data for '{place}': {str(e)}"
 
+
 # -------------------- TOOL 2: Get Time --------------------
 @tool
 def get_current_time_in_timezone(timezone: str) -> str:
-    """A tool that fetches the current local time in a specified timezone.
+    """
+    A tool that fetches the current local time in a specified timezone.
+
     Args:
-        timezone: A string representing a valid timezone (e.g., 'America/New_York').
+        timezone (str): A string representing a valid timezone (e.g., 'America/New_York').
+
+    Returns:
+        str: The current local time formatted as a string.
     """
     try:
         tz = pytz.timezone(timezone)
@@ -64,16 +75,22 @@ def get_current_time_in_timezone(timezone: str) -> str:
     except Exception as e:
         return f"Error fetching time for timezone '{timezone}': {str(e)}"
 
+
 # -------------------- TOOL 3: Document QnA --------------------
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 qa_pipeline = pipeline("text2text-generation", model="google/flan-t5-base")
 
 @tool
 def document_qna_tool(pdf_path: str, question: str) -> str:
-    """A tool for answering questions based on the content of a PDF document.
+    """
+    A tool for answering questions based on the content of a PDF document.
+
     Args:
-        pdf_path: A string path to the local PDF file.
-        question: A natural language question to ask about the PDF content.
+        pdf_path (str): Path to the local PDF file.
+        question (str): A natural language question to ask about the PDF content.
+
+    Returns:
+        str: Answer to the question based on the PDF's content.
     """
     try:
         # Step 1: Extract text from PDF
@@ -102,6 +119,7 @@ def document_qna_tool(pdf_path: str, question: str) -> str:
 
     except Exception as e:
         return f"Error processing document QnA: {str(e)}"
+
 
 # -------------------- Other Components --------------------
 final_answer = FinalAnswerTool()

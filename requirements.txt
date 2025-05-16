@@ -6,3 +6,6 @@ pandas
 PyMuPDF
 sentence-transformers
 transformers
+gradio
+pytz
+pyyaml
